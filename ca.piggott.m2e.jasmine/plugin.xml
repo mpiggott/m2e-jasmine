@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.m2e.core.projectConfigurators">
+      <configurator
+            class="ca.piggott.m2e.jasmine.internal.JasmineProjectConfigurator"
+            id="ca.piggott.m2e.jasmine.JasmineProjectConfigurator"
+            name="Jasmine Project Configurator">
+      </configurator>
+   </extension>
+   <extension
+         point="org.eclipse.m2e.core.lifecycleMappingMetadataSource">
+   </extension>
+<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+    <launchConfigurationType
+        name="Jasmine Tests"
+        delegate="ca.piggott.m2e.jasmine.internal.launch.JasmineLaunchConfigurationDelegate"
+        modes="run, debug"
+        id="ca.piggott.m2e.jasmine.jasmineLaunch">
+    </launchConfigurationType>
+</extension>
+<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+    <launchConfigurationTypeImage
+        icon="icons/jasmine_favicon_16.png"
+        configTypeID="ca.piggott.m2e.jasmine.jasmineLaunch"
+        id="ca.piggott.m2e.jasmine.launchConfigurationTypeImage.jasmineLaunch">
+    </launchConfigurationTypeImage>
+</extension>
+<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    <launchConfigurationTabGroup
+        type="ca.piggott.m2e.jasmine.jasmineLaunch"
+        class="ca.piggott.m2e.jasmine.internal.launch.JasmineTabGroup"
+        id="org.eclipse.jdt.debug.ui.launchConfigurationTabGroup.javaApplet">
+    </launchConfigurationTabGroup>
+</extension>
+<extension
+      point="org.eclipse.ui.editors">
+   <editor
+         class="ca.piggott.m2e.jasmine.internal.ui.JasmineBrowserEditorPart"
+         icon="icons/jasmine_favicon_16.png"
+         id="ca.piggott.m2e.jasmine.internal.ui.JasmineBrowserEditorPart"
+         name="Jasmine Test Result">
+   </editor>
+</extension>
+</plugin>

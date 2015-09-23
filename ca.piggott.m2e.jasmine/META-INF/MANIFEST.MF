@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jasmine Project Configurator
+Bundle-SymbolicName: ca.piggott.m2e.jasmine;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: ca.piggott.m2e.jasmine.internal.Activator
+Bundle-Vendor: Matthew Piggott
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.debug.ui,
+ org.eclipse.jdt.ui,
+ org.eclipse.m2e.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Import-Package: org.apache.maven.model,
+ org.apache.maven.project,
+ org.codehaus.plexus.util,
+ org.codehaus.plexus.util.xml,
+ org.eclipse.m2e.core,
+ org.eclipse.m2e.core.project.configurator
+Bundle-ClassPath: lib/freemarker-2.3.20.jar,
+ .
