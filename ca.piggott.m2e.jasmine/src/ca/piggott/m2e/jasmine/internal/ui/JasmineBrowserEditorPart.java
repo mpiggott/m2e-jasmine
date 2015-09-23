@@ -99,9 +99,9 @@ public class JasmineBrowserEditorPart extends EditorPart {
 		}
 	}
 
-	public static IEditorPart open(File specRunner, String name) throws Exception {
-		List<Exception> exception = new LinkedList<>();
-		List<IEditorPart> part = new LinkedList<>();
+	public static IEditorPart open(final File specRunner, final String name) throws Exception {
+		final List<Exception> exception = new LinkedList<>();
+		final List<IEditorPart> part = new LinkedList<>();
 		Display.getDefault().syncExec(new Runnable() {
 
 			@Override
@@ -150,12 +150,6 @@ public class JasmineBrowserEditorPart extends EditorPart {
 			this.name = name;
 		}
 
-		@SuppressWarnings("rawtypes")
-		@Override
-		public Object getAdapter(Class adapter) {
-			return null;
-		}
-
 		@Override
 		public boolean exists() {
 			return false;
@@ -184,6 +178,13 @@ public class JasmineBrowserEditorPart extends EditorPart {
 
 		public File getSpecRunner() {
 			return specRunner;
+		}
+
+
+		@Override
+		public <T> T getAdapter(Class<T> adapter) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 }

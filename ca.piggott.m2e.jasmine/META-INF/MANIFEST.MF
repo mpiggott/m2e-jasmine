@@ -9,14 +9,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.debug.ui,
  org.eclipse.jdt.ui,
- org.eclipse.m2e.core
+ org.eclipse.m2e.core,
+ org.eclipse.m2e.maven.runtime;bundle-version="1.6.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Import-Package: org.apache.maven.model,
- org.apache.maven.project,
- org.codehaus.plexus.util,
- org.codehaus.plexus.util.xml,
- org.eclipse.m2e.core,
+Import-Package: org.eclipse.m2e.core,
  org.eclipse.m2e.core.project.configurator
 Bundle-ClassPath: lib/freemarker-2.3.20.jar,
  .

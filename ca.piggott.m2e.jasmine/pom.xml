@@ -9,6 +9,4 @@
 
   <artifactId>ca.piggott.m2e.jasmine</artifactId>
   <packaging>eclipse-plugin</packaging>
-
-
 </project>
