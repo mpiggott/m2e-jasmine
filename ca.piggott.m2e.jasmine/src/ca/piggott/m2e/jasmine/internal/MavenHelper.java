@@ -74,7 +74,7 @@ public class MavenHelper {
 	}
 
 	public static List<String> getPreloadSources(String projectName, JasminePluginConfiguration config) throws CoreException {
-		return getFiles(projectName, config.getJsSourceDir(), config.getPreloadSources(), Collections.emptyList());
+		return getFiles(projectName, config.getJsSourceDir(), config.getPreloadSources(), Collections.<String>emptyList());
 	}
 
 	public static List<String> getSources(String projectName, JasminePluginConfiguration config) throws CoreException {
@@ -89,7 +89,7 @@ public class MavenHelper {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 		IFolder folder = project.getFolder(Path.fromOSString(path));
 		if (!folder.exists()) {
-			return Collections.emptyList();
+			return Collections.<String>emptyList();
 		}
 		File root = new File(folder.getRawLocationURI());
 		try {

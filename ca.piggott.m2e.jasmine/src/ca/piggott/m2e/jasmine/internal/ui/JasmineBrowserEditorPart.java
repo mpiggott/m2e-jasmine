@@ -99,33 +99,44 @@ public class JasmineBrowserEditorPart extends EditorPart {
 		}
 	}
 
-	public static IEditorPart open(File specRunner, String name) throws PartInitException {
-		List<PartInitException> exception = new LinkedList<>();
+	public static IEditorPart open(File specRunner, String name) throws Exception {
+		List<Exception> exception = new LinkedList<>();
 		List<IEditorPart> part = new LinkedList<>();
 		Display.getDefault().syncExec(new Runnable() {
 
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				
-				IWorkbench wb = PlatformUI.getWorkbench();
-				IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-				if (win != null) {
-					IWorkbenchPage page = win.getActivePage();
+				try {
+					IWorkbenchPage page = getPage();
 					JasmineEditorInput input = new JasmineEditorInput(specRunner, name);
-					if (page != null) {
-						try {
-							part.add(page.openEditor(input, ID));
-						} catch (PartInitException e) {
-							exception.add(e);
-						}
-					}
+					part.add(page.openEditor(input, ID));
+				} catch (Exception e) {
+					exception.add(e);
 				}
 			}});
 		if (!exception.isEmpty()) {
 			throw exception.get(0);
 		}
 		return part.get(0);
+	}
+
+	private static IWorkbenchPage getPage() {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		if (win != null) {
+			IWorkbenchPage page = win.getActivePage();
+			if (page != null) {
+				return page;
+			}
+		}
+		for (IWorkbenchWindow wbw : wb.getWorkbenchWindows()) {
+			IWorkbenchPage page = wbw.getActivePage();
+			if (page != null) {
+				return page;
+			}
+		}
+		throw new IllegalStateException("No workbench pages?");
 	}
 
 	public static class JasmineEditorInput implements IEditorInput {

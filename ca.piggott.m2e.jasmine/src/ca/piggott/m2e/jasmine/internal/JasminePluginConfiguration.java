@@ -64,11 +64,11 @@ public class JasminePluginConfiguration {
 	}
 
 	public static  JasminePluginConfiguration from(Xpp3Dom pluginConfiguration) {
-		return new JasminePluginConfiguration(getList(pluginConfiguration, "preloadSources", Collections.emptyList()),
-				getList(pluginConfiguration, "specIncludes", Collections.singletonList("**/*.js")),
-				getList(pluginConfiguration, "sourceIncludes", Collections.singletonList("**/*.js")),
-				getList(pluginConfiguration, "specExcludes", Collections.emptyList()),
-				getList(pluginConfiguration, "sourceExcludes", Collections.emptyList()),
+		return new JasminePluginConfiguration(getList(pluginConfiguration, "preloadSources", Collections.<String>emptyList()),
+				getList(pluginConfiguration, "specIncludes", Collections.<String>singletonList("**/*.js")),
+				getList(pluginConfiguration, "sourceIncludes", Collections.<String>singletonList("**/*.js")),
+				getList(pluginConfiguration, "specExcludes", Collections.<String>emptyList()),
+				getList(pluginConfiguration, "sourceExcludes", Collections.<String>emptyList()),
 				get(pluginConfiguration, "jsSrcDir", "src/main/javascript"),
 				get(pluginConfiguration, "jsTestSrcDir", "src/test/javascript"));
 	}

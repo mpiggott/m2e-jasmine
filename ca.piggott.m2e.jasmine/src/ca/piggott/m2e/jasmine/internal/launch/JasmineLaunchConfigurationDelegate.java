@@ -53,7 +53,13 @@ public class JasmineLaunchConfigurationDelegate extends
 		File specRunner = getSpecRunner(createModel(configuration, mon.newChild(4)), mon.newChild(1));
 
 		// Create Browser editor part
-		JasmineBrowserEditorPart.open(specRunner, configuration.getName());
+		try {
+			JasmineBrowserEditorPart.open(specRunner, configuration.getName());
+		} catch (CoreException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Failed to open editor", e));
+		}
 		// TODO monitor browser part
 	}
 

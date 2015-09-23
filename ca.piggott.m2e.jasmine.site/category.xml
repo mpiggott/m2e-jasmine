@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+	<feature version="0.0.0" id="ca.piggott.m2e.jasmine.feature" url="features/ca.piggott.m2e.jasmine.feature_0.0.0.jar">
+		<category name="m2e jasmine"/>
+	</feature>
+	<category-def name="m2e jasmine" label="m2e jasmine"/>
+</site>
