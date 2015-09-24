@@ -4,21 +4,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
@@ -38,7 +40,7 @@ public class MavenHelper {
 			monitor.done();
 		}
 	}
-	
+
 	public static List<String> getExecutionIds(String projectName, IProgressMonitor monitor) throws CoreException {
 		MavenProject project = getProjectByName(projectName, monitor);
 		List<String> executionIds = new LinkedList<String>();
@@ -84,16 +86,28 @@ public class MavenHelper {
 	public static List<String> getSpecs(String projectName, JasminePluginConfiguration config) throws CoreException {
 		return getFiles(projectName, config.getJsSpecDir(), config.getSpecIncludes(), config.getSpecExcludes());
 	}
-	
+
 	private static List<String> getFiles(String projectName, String path, List<String> includes, List<String> excludes) throws CoreException {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-		IFolder folder = project.getFolder(Path.fromOSString(path));
-		if (!folder.exists()) {
+
+		IFile[] candidateLocations = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(new File(path).toURI());
+		IFolder folder = null;
+		for (IFile candidate : candidateLocations) {
+			if (candidate.getProject().equals(project)) {
+				folder = project.getFolder(candidate.getProjectRelativePath());
+				break;
+			}
+		}
+
+		if (folder == null || !folder.exists()) {
 			return Collections.<String>emptyList();
 		}
 		File root = new File(folder.getRawLocationURI());
 		try {
-			List<File> files = FileUtils.getFiles(root, toCommaSeparated(includes), toCommaSeparated(excludes));
+			Set<File> files = new LinkedHashSet<>();
+			for (String include : includes) {
+				files.addAll(FileUtils.getFiles(root, include, toCommaSeparated(excludes)));
+			}
 			List<String> urls = new ArrayList<>(files.size());
 
 			for (File file : files) {
@@ -131,7 +145,7 @@ public class MavenHelper {
 	private static CoreException createCoreException(String message) {
 		return createCoreException(message, null);
 	}
-	
+
 	private static CoreException createCoreException(String message, Exception e) {
 		return new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e));
 	}
