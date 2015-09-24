@@ -2,16 +2,20 @@ package ca.piggott.m2e.jasmine.internal;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -87,13 +91,25 @@ public class MavenHelper {
 	
 	private static List<String> getFiles(String projectName, String path, List<String> includes, List<String> excludes) throws CoreException {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-		IFolder folder = project.getFolder(Path.fromOSString(path));
-		if (!folder.exists()) {
+
+		IFile[] candidateLocations = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(new File(path).toURI());
+		IFolder folder = null;
+		for (IFile candidate : candidateLocations) {
+			if (candidate.getProject().equals(project)) {
+				folder = project.getFolder(candidate.getProjectRelativePath());
+				break;
+			}
+		}
+
+		if (folder == null || !folder.exists()) {
 			return Collections.<String>emptyList();
 		}
 		File root = new File(folder.getRawLocationURI());
 		try {
-			List<File> files = FileUtils.getFiles(root, toCommaSeparated(includes), toCommaSeparated(excludes));
+			Set<File> files = new LinkedHashSet<>();
+			for (String include : includes) {
+				files.addAll(FileUtils.getFiles(root, include, toCommaSeparated(excludes)));
+			}
 			List<String> urls = new ArrayList<>(files.size());
 
 			for (File file : files) {
