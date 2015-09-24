@@ -39,7 +39,7 @@ public class JasmineLaunchConfigurationDelegate extends
 	
 	static {
 		List<String> files = new LinkedList<>();
-		files.add("boot.js");
+		files.add("jasmine.css");
 		files.add("jasmine-html.js");
 		files.add("jasmine.js");
 		
