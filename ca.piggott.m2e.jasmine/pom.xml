@@ -9,24 +9,4 @@
 
   <artifactId>ca.piggott.m2e.jasmine</artifactId>
   <packaging>eclipse-plugin</packaging>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-compiler-plugin</artifactId>
-        <configuration>
-          <extraClasspathElements>
-            <extraClasspathElement>
-              <groupId>javafx</groupId>
-              <artifactId>javafx.mvn</artifactId>
-              <version>2.2.0-SNAPSHOT</version>
-              <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
-              <scope>system</scope>
-            </extraClasspathElement>
-          </extraClasspathElements>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
