@@ -18,6 +18,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -99,20 +100,34 @@ public class MavenHelper {
 				break;
 			}
 		}
+		
+		if (folder == null) {
+			IResource resource = project.findMember(path);
+			if (resource instanceof IFolder && resource.exists()) {
+				folder = (IFolder) resource;
+			}
+		}
 
 		if (folder == null || !folder.exists()) {
 			return Collections.<String>emptyList();
 		}
 		File root = new File(folder.getRawLocationURI());
 		try {
-			Set<File> files = new LinkedHashSet<>();
+			Set<IFile> files = new LinkedHashSet<>();
 			for (String include : includes) {
-				files.addAll(FileUtils.getFiles(root, include, toCommaSeparated(excludes)));
+				for (File file : FileUtils.getFiles(root, include, toCommaSeparated(excludes))) {
+					for (IFile iFile : ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(file.toURI())) {
+						if (iFile.exists()) {
+							files.add(iFile);
+							break;
+						}
+					}
+				}
 			}
 			List<String> urls = new ArrayList<>(files.size());
 
-			for (File file : files) {
-				urls.add(file.toURI().toURL().toString());
+			for (IFile file : files) {
+				urls.add("resource://" + file.getFullPath().toString());
 			}
 
 			return urls;
