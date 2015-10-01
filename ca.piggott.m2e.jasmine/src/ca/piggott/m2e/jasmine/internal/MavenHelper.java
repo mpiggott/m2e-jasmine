@@ -22,7 +22,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
@@ -42,7 +41,7 @@ public class MavenHelper {
 			monitor.done();
 		}
 	}
-	
+
 	public static List<String> getExecutionIds(String projectName, IProgressMonitor monitor) throws CoreException {
 		MavenProject project = getProjectByName(projectName, monitor);
 		List<String> executionIds = new LinkedList<String>();
@@ -88,7 +87,7 @@ public class MavenHelper {
 	public static List<String> getSpecs(String projectName, JasminePluginConfiguration config) throws CoreException {
 		return getFiles(projectName, config.getJsSpecDir(), config.getSpecIncludes(), config.getSpecExcludes());
 	}
-	
+
 	private static List<String> getFiles(String projectName, String path, List<String> includes, List<String> excludes) throws CoreException {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 
@@ -147,7 +146,7 @@ public class MavenHelper {
 	private static CoreException createCoreException(String message) {
 		return createCoreException(message, null);
 	}
-	
+
 	private static CoreException createCoreException(String message, Exception e) {
 		return new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e));
 	}

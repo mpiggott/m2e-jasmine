@@ -10,10 +10,18 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.debug.ui,
  org.eclipse.jdt.ui,
  org.eclipse.m2e.core,
- org.eclipse.m2e.maven.runtime;bundle-version="1.6.1"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+ org.eclipse.m2e.maven.runtime;bundle-version="1.6.1",
+ org.eclipse.fx.javafx
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.m2e.core,
- org.eclipse.m2e.core.project.configurator
-Bundle-ClassPath: lib/freemarker-2.3.20.jar,
- .
+ org.eclipse.m2e.core.project.configurator,
+ javafx.embed.swt,
+ javafx.beans.value,
+ javafx.concurrent,
+ javafx.scene,
+ javafx.scene.web,
+ netscape.javascript
+Bundle-ClassPath: .,
+ lib/freemarker-2.3.20.jar
+

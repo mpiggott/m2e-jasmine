@@ -33,16 +33,16 @@ import freemarker.template.TemplateException;
 
 public class JasmineLaunchConfigurationDelegate extends
 		LaunchConfigurationDelegate {
-	
+
 	private Template template;
 	private static final List<String> FILES;
-	
+
 	static {
 		List<String> files = new LinkedList<>();
 		files.add("jasmine.css");
 		files.add("jasmine-html.js");
 		files.add("jasmine.js");
-		
+
 		FILES = Collections.unmodifiableList(files);
 	}
 
@@ -84,9 +84,9 @@ public class JasmineLaunchConfigurationDelegate extends
 		try {
 			Path testPath = Files.createTempDirectory("jasmine");
 			Path specRunner = testPath.resolve("index.html");
-			
+
 			getTemplate().process(model, Files.newBufferedWriter(specRunner, StandardOpenOption.CREATE));
-			
+
 			for (String file : FILES) {
 				copy(testPath.resolve(file), file);
 			}
@@ -110,7 +110,7 @@ public class JasmineLaunchConfigurationDelegate extends
 		}
 		return template;
 	}
-	
+
 	private static void copy(Path destination, String resource) throws IOException {
 		InputStream in = null;
 		try {
@@ -119,7 +119,7 @@ public class JasmineLaunchConfigurationDelegate extends
 		} finally {
 			closeQuietly(in);
 		}
-		
+
 	}
 
 	private static void closeQuietly(Closeable stream) {

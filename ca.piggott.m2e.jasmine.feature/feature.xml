@@ -17,6 +17,10 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import feature="org.eclipse.fx.runtime.min.feature" version="0.0.0" match="compatible"/>
+   </requires>
+
    <plugin
          id="ca.piggott.m2e.jasmine"
          download-size="0"
