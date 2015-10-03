@@ -3,7 +3,8 @@
 <html>
 <head>
   <title>Jasmine Spec Runner</title>
-
+<script type='text/javascript'
+     src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script>
   <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.3.1/jasmine_favicon.png">
   <link rel="stylesheet" type="text/css" href="jasmine.css">
   <script type="text/javascript" src="jasmine.js"></script>
