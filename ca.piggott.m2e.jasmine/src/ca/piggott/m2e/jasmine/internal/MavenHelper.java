@@ -2,7 +2,6 @@ package ca.piggott.m2e.jasmine.internal;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -127,7 +126,7 @@ public class MavenHelper {
 			List<String> urls = new ArrayList<>(files.size());
 
 			for (IFile file : files) {
-				urls.add("resource://" + file.getFullPath().toString());
+				urls.add("platform:/resource" + file.getFullPath().toString());
 			}
 
 			return urls;
