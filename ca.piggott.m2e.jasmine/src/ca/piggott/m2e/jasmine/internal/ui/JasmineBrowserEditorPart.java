@@ -97,6 +97,7 @@ public class JasmineBrowserEditorPart extends EditorPart {
 		} catch (MalformedURLException e) {
 			StatusManager.getManager().handle(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "", e), StatusManager.SHOW);
 		}
+		setPartName(getEditorInput().getName());
 	}
 
 	@Override
