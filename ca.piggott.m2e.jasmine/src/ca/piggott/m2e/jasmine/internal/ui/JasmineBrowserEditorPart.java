@@ -72,22 +72,21 @@ public class JasmineBrowserEditorPart extends EditorPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-	    parent.setLayout(new FillLayout());
+		parent.setLayout(new FillLayout());
 
-	    canvas = new FXCanvas(parent, SWT.NONE);
-	    WebView view = new WebView();
+		canvas = new FXCanvas(parent, SWT.NONE);
+		WebView view = new WebView();
 
-	    ScrollPane scrollPane = new ScrollPane();
-	    scrollPane.setFitToWidth(true);
-	    scrollPane.setFitToHeight(true);
-	    scrollPane.getStyleClass().add("noborder-scroll-pane");
-	    Scene scene = new Scene(scrollPane);
-	    scrollPane.setContent(view);
+		ScrollPane scrollPane = new ScrollPane();
+		scrollPane.setFitToWidth(true);
+		scrollPane.setFitToHeight(true);
+		scrollPane.getStyleClass().add("noborder-scroll-pane");
+		Scene scene = new Scene(scrollPane);
+		scrollPane.setContent(view);
 
-	    canvas.setScene(scene);
+		canvas.setScene(scene);
 
-	    WebEngine engine = view.getEngine();
-
+		WebEngine engine = view.getEngine();
 
 		try {
 			engine.load(((JasmineEditorInput)getEditorInput()).getSpecRunner().toURI().toURL().toString());
